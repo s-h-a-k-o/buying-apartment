@@ -28,8 +28,6 @@ const ProfileMenu: FC = () => {
             sx={{
               width: { sx: "25px", sm: "25px" },
               height: { sx: "25px", sm: "25px" },
-              margin: 0,
-              padding: 0,
             }}
           />
         }

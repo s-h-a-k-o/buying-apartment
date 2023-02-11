@@ -99,7 +99,19 @@ const Home: FC = () => {
                 </li>
               )}
               renderInput={(params) => (
-                <TextField {...params} label="address, description" />
+                <TextField
+                  {...params}
+                  label="address, description"
+                  sx={{
+                    background: "#bbdefb",
+                    borderRadius: 5,
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderRadius: 5,
+                      border: "none",
+                      outline: "none",
+                    },
+                  }}
+                />
               )}
               value={value2}
               onChange={handleChange2}

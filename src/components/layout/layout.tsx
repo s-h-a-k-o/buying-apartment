@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { ReactNode } from "react";
+import Footer from "./footer/footer";
 import MainNavigation from "./mainNavigation/mainNavigation";
 
 interface ChildrenType {
@@ -11,6 +12,7 @@ const Layout: FC<ChildrenType> = ({ children }) => {
     <>
       <MainNavigation />
       <main>{children}</main>
+      <Footer />
     </>
   );
 };

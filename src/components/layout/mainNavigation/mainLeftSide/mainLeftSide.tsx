@@ -1,6 +1,14 @@
 import { FC, useState } from "react";
 import Link from "next/link";
-import { Drawer, Box, Button, Typography, Stack } from "@mui/material";
+import {
+  Drawer,
+  Box,
+  Button,
+  Typography,
+  Stack,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 
 import MenuIcon from "@mui/icons-material/Menu";
@@ -10,6 +18,7 @@ import ShopIcon from "@mui/icons-material/Shop";
 import SellIcon from "@mui/icons-material/Sell";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import ContactPageIcon from "@mui/icons-material/ContactPage";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -28,10 +37,24 @@ const bottomBorder = (
 
 const MainRightSide: FC = () => {
   const [drawerOpen, setDrowerOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <Box sx={{ display: { md: "none" } }}>
       <IconButton
-        sx={{ color: "#212121" }}
+        sx={{
+          color: "#212121",
+          margin: { xs: -2, sm: -1 },
+        }}
         size="large"
         edge="start"
         aria-label="logo"
@@ -109,16 +132,95 @@ const MainRightSide: FC = () => {
 
             <Button
               variant="outlined"
+              id="button-id"
               color="inherit"
+              onClick={handleClick}
+              aria-controls={open ? "menu-id" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
               startIcon={<ShopIcon />}
-              sx={{
-                color: "black",
-                fontWeight: "bold",
-                width: "150px",
-              }}
+              endIcon={<KeyboardArrowDownIcon />}
+              sx={{ color: "black", fontWeight: "bold", width: "150px" }}
             >
               Buy
             </Button>
+            <Menu
+              id="menu-id"
+              anchorEl={anchorEl}
+              open={open}
+              MenuListProps={{ "aria-labelledby": "button-id" }}
+              onClose={handleClose}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              transformOrigin={{ vertical: "top", horizontal: "right" }}
+              sx={{ marginTop: 0.5 }}
+            >
+              <Typography
+                variant="body1"
+                sx={{
+                  padding: 2,
+                }}
+              >
+                Property Type
+              </Typography>
+              {bottomBorder}
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <MenuItem
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    color: "#1565c0",
+                  }}
+                >
+                  Any
+                </MenuItem>
+                <MenuItem
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    color: "#1565c0",
+                  }}
+                >
+                  Family-Home
+                </MenuItem>
+                <MenuItem
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    color: "#1565c0",
+                  }}
+                >
+                  Townhome
+                </MenuItem>
+                <MenuItem
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    color: "#1565c0",
+                  }}
+                >
+                  Flat
+                </MenuItem>
+                <MenuItem
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    color: "#1565c0",
+                  }}
+                >
+                  Land
+                </MenuItem>
+              </Box>
+            </Menu>
             <Button
               variant="outlined"
               color="inherit"
@@ -171,24 +273,28 @@ const MainRightSide: FC = () => {
               }}
             >
               <FacebookIcon
+                titleAccess="Like us on Facebook"
                 sx={{ cursor: "pointer" }}
                 onClick={() => {
                   window.open("https://www.facebook.com/apartments");
                 }}
               />
               <InstagramIcon
+                titleAccess="Folwow us on Instagram"
                 sx={{ cursor: "pointer" }}
                 onClick={() => {
                   window.open("https://www.instagram.com/apartments");
                 }}
               />
               <TwitterIcon
+                titleAccess="Follow us on Twitter"
                 sx={{ cursor: "pointer" }}
                 onClick={() => {
                   window.open("https://twitter.com/apartments");
                 }}
               />
               <YouTubeIcon
+                titleAccess="Follow our YouTube channel"
                 sx={{ cursor: "pointer" }}
                 onClick={() => {
                   window.open("https://www.youtube.com/apartments");
