@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { Box, Typography, TextField, Autocomplete } from "@mui/material";
+import FeaturedHouses from "./featured houses/featuredHouses";
 
 interface Skill {
   id: number;
@@ -99,7 +100,19 @@ const Home: FC = () => {
                 </li>
               )}
               renderInput={(params) => (
-                <TextField {...params} label="address, description" />
+                <TextField
+                  {...params}
+                  label="address, description"
+                  sx={{
+                    background: "#bbdefb",
+                    borderRadius: 5,
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderRadius: 5,
+                      border: "none",
+                      outline: "none",
+                    },
+                  }}
+                />
               )}
               value={value2}
               onChange={handleChange2}
@@ -109,6 +122,9 @@ const Home: FC = () => {
               }
             />
           </Box>
+        </Box>
+        <Box>
+          <FeaturedHouses />
         </Box>
       </Box>
     </>
