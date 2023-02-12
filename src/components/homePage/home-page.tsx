@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { Box, Typography, TextField, Autocomplete } from "@mui/material";
+import FeaturedHouses from "./featured houses/featuredHouses";
 
 interface Skill {
   id: number;
@@ -121,6 +122,9 @@ const Home: FC = () => {
               }
             />
           </Box>
+        </Box>
+        <Box>
+          <FeaturedHouses />
         </Box>
       </Box>
     </>

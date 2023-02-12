@@ -143,7 +143,7 @@ const Footer: FC = () => {
 
           <Box sx={{ marginTop: 5 }}>
             <Typography variant="body2" sx={{ color: "white" }}>
-              Copyright © 2023 Apartments.
+              © 1995-2023. All rights reserved.
             </Typography>
           </Box>
         </Container>
