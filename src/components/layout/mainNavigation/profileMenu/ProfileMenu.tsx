@@ -3,6 +3,7 @@ import { Box, Menu, MenuItem, Button } from "@mui/material";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Avatar from "@mui/material/Avatar";
+import Link from "next/link";
 
 const ProfileMenu: FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -49,17 +50,21 @@ const ProfileMenu: FC = () => {
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         transformOrigin={{ vertical: "top", horizontal: "right" }}
       >
-        <MenuItem>
-          <Avatar
-            sx={{ width: 24, height: 24, marginRight: 1, marginBottom: 1 }}
-          />{" "}
-          Login
-        </MenuItem>
-        <MenuItem>
-          {" "}
-          <Avatar sx={{ width: 24, height: 24, marginRight: 1 }} />
-          Sign-up
-        </MenuItem>
+        <Link href="/user/login">
+          <MenuItem>
+            <Avatar
+              sx={{ width: 24, height: 24, marginRight: 1, marginBottom: 1 }}
+            />{" "}
+            Login
+          </MenuItem>
+        </Link>
+        <Link href="/user/sign-up">
+          <MenuItem>
+            {" "}
+            <Avatar sx={{ width: 24, height: 24, marginRight: 1 }} />
+            Sign-up
+          </MenuItem>
+        </Link>
       </Menu>
     </Box>
   );
