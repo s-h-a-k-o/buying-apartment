@@ -51,15 +51,19 @@ const MainNavigation: FC = () => {
                   width={70}
                   height={70}
                   priority
-                  className="w-[50px] h-[50px] md:w-[70px] md:h-[70px] "
+                  className="w-[50px] h-[50px] md:w-[65px] md:h-[65px] lg:w-[70px] lg:h-[70px] "
                 />
                 <Typography
                   variant="h6"
                   sx={{
                     color: "black",
                     fontWeight: "bold",
-                    ml: { xs: 0.5, sm: 2 },
-                    fontSize: { xs: "16px", sm: "20px" },
+                    ml: { xs: 0.5, sm: 2, md: 1 },
+                    fontSize: {
+                      xs: "16px",
+                      sm: "20px",
+                      md: "18px",
+                    },
                   }}
                 >
                   Apartments
@@ -183,7 +187,7 @@ const MainNavigation: FC = () => {
                 ml: 3,
               }}
             >
-              Login
+              <Link href="/user/login">sign in</Link>
             </Button>
             <Button
               variant="outlined"
@@ -193,7 +197,7 @@ const MainNavigation: FC = () => {
                 ml: 2,
               }}
             >
-              Sign up
+              <Link href="/user/sign-up">Sign up</Link>
             </Button>
           </Box>
         </Toolbar>

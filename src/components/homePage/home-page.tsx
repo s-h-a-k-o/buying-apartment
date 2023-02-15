@@ -102,7 +102,7 @@ const Home: FC = () => {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="address, description"
+                  placeholder="address, description"
                   sx={{
                     background: "#bbdefb",
                     borderRadius: 5,
