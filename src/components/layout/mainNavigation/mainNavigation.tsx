@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import LoginIcon from "@mui/icons-material/Login";
-import MainRightSide from "./mainLeftSide/mainLeftSide";
+import MainLeftSide from "./mainLeftSide/mainLeftSide";
 import ProfileMenu from "./profileMenu/ProfileMenu";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
@@ -36,7 +36,7 @@ const MainNavigation: FC = () => {
     <Box>
       <AppBar position="static" sx={{ background: "#e8eaf6" }}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <MainRightSide />
+          <MainLeftSide />
           <Box sx={{ display: "flex" }}>
             <Link href="/">
               <IconButton

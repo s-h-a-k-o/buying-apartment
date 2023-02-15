@@ -35,7 +35,7 @@ const bottomBorder = (
   />
 );
 
-const MainRightSide: FC = () => {
+const MainLeftSide: FC = () => {
   const [drawerOpen, setDrowerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -308,4 +308,4 @@ const MainRightSide: FC = () => {
   );
 };
 
-export default MainRightSide;
+export default MainLeftSide;
