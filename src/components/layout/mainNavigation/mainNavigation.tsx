@@ -177,28 +177,32 @@ const MainNavigation: FC = () => {
             <Button color="inherit" sx={{ color: "black", fontWeight: "bold" }}>
               Contact
             </Button>
-            <Button
-              variant="outlined"
-              color="inherit"
-              startIcon={<LoginIcon />}
-              sx={{
-                color: "blue",
-                fontWeight: "bold",
-                ml: 3,
-              }}
-            >
-              <Link href="/user/login">sign in</Link>
-            </Button>
-            <Button
-              variant="outlined"
-              endIcon={<AppRegistrationIcon />}
-              sx={{
-                fontWeight: "bold",
-                ml: 2,
-              }}
-            >
-              <Link href="/user/sign-up">Sign up</Link>
-            </Button>
+            <Link href="/user/login">
+              <Button
+                variant="outlined"
+                color="inherit"
+                startIcon={<LoginIcon />}
+                sx={{
+                  color: "blue",
+                  fontWeight: "bold",
+                  ml: 3,
+                }}
+              >
+                sign in
+              </Button>
+            </Link>
+            <Link href="/user/sign-up">
+              <Button
+                variant="outlined"
+                endIcon={<AppRegistrationIcon />}
+                sx={{
+                  fontWeight: "bold",
+                  ml: 2,
+                }}
+              >
+                Sign up
+              </Button>
+            </Link>
           </Box>
         </Toolbar>
       </AppBar>{" "}
