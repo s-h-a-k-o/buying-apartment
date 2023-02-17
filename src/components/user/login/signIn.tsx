@@ -1,5 +1,8 @@
 import { FC } from "react";
 
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,16 +16,20 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-const SignIn: FC = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+const initialValues = {
+  email: "",
+  password: "",
+};
 
+const validationSchema = Yup.object({
+  email: Yup.string().email("Invalid email format").required("Required!"),
+  password: Yup.string().required("Required!"),
+});
+const onSubmit = (values: any) => {
+  console.log(values);
+};
+
+const SignIn: FC = () => {
   return (
     <Container component="main" maxWidth="xs" sx={{ minHeight: "100vh" }}>
       <CssBaseline />
@@ -40,53 +47,77 @@ const SignIn: FC = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            className="bg-blue-700 hover:bg-blue-600"
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="/user/sign-up" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </Box>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          {(formik) => (
+            <Form className="mt-5">
+              <Field
+                type="email"
+                id="email"
+                name="email"
+                as={TextField}
+                autoComplete="given-email"
+                required
+                fullWidth
+                margin="normal"
+                label="Email Address"
+                error={
+                  Boolean(formik.errors.email) && Boolean(formik.touched.email)
+                }
+                helperText={
+                  Boolean(formik.touched.email) && formik.errors.email
+                }
+              />
+
+              <Field
+                type="password"
+                id="password"
+                name="password"
+                as={TextField}
+                autoComplete="given-password"
+                required
+                fullWidth
+                margin="normal"
+                label="Password"
+                error={
+                  Boolean(formik.errors.password) &&
+                  Boolean(formik.touched.password)
+                }
+                helperText={
+                  Boolean(formik.touched.password) && formik.errors.password
+                }
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                className="bg-blue-700 hover:bg-blue-600"
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link href="/user/sign-up" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </Form>
+          )}
+        </Formik>
       </Box>
     </Container>
   );
