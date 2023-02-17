@@ -53,12 +53,13 @@ const validationSchema = Yup.object().shape({
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), ""], "Password must match")
     .required("Required!"),
-  dateOfBirth: Yup.date()
-    .nullable()
-    // .test("dateOfBirth", "You must be 18 years or older", function (value) {
-    //   return moment().diff(moment(value, "YYYY-MM-DD"), "years") >= 18;
-    // })
-    .required("Please enter your age"),
+  // dateOfBirth: Yup.date()
+  //   .nullable()
+  //   // .test("dateOfBirth", "You must be 18 years or older", function (value) {
+  //   //   return moment().diff(moment(value, "YYYY-MM-DD"), "years") >= 18;
+  //   // })
+  //   .required("Please enter your age"),
+  dateOfBirth: Yup.date().nullable().required("Required!"),
 });
 
 const onSubmit = (values: FormValuesType, formikHelpaers: any) => {
@@ -67,7 +68,7 @@ const onSubmit = (values: FormValuesType, formikHelpaers: any) => {
 };
 
 const SignUp: FC = () => {
-  const [value, setValue] = useState<Dayjs | null >(null); //????
+  const [value, setValue] = useState<Dayjs | null>(null); //????
 
   return (
     <Container component="main" maxWidth="xs" sx={{ minHeight: "100vh" }}>
@@ -190,7 +191,7 @@ const SignUp: FC = () => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  {" "}
+                  {/* {" "}
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label="Birthday"
@@ -207,18 +208,36 @@ const SignUp: FC = () => {
                           required
                           fullWidth
                           error={
-                            Boolean(formik.errors.confirmPassword) &&
-                            Boolean(formik.touched.confirmPassword)
+                            Boolean(formik.errors.dateOfBirth) &&
+                            Boolean(formik.touched.dateOfBirth)
                           }
                           helperText={
-                            Boolean(formik.touched.confirmPassword) &&
-                            formik.errors.confirmPassword
+                            Boolean(formik.touched.dateOfBirth) &&
+                            formik.errors.dateOfBirth
                           }
                           {...params}
                         />
                       )}
                     />
-                  </LocalizationProvider>
+                  </LocalizationProvider> */}
+                  <Field
+                    type="date"
+                    id="dateOfBirth"
+                    name="dateOfBirth"
+                    as={TextField}
+                    focused
+                    label="Birthday"
+                    required
+                    fullWidth
+                    error={
+                      Boolean(formik.errors.dateOfBirth) &&
+                      Boolean(formik.touched.dateOfBirth)
+                    }
+                    helperText={
+                      Boolean(formik.touched.dateOfBirth) &&
+                      formik.errors.dateOfBirth
+                    }
+                  />
                 </Grid>
                 <Grid item xs={12}>
                   <FormControlLabel
