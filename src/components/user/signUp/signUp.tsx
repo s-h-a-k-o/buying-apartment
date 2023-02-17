@@ -225,8 +225,8 @@ const SignUp: FC = () => {
                     id="dateOfBirth"
                     name="dateOfBirth"
                     as={TextField}
-                    focused
-                    label="Birthday"
+                    //  focused
+                    //  label="Birthday"
                     required
                     fullWidth
                     error={
@@ -234,8 +234,9 @@ const SignUp: FC = () => {
                       Boolean(formik.touched.dateOfBirth)
                     }
                     helperText={
-                      Boolean(formik.touched.dateOfBirth) &&
-                      formik.errors.dateOfBirth
+                      // Boolean(formik.touched.dateOfBirth) &&
+                      // formik.errors.dateOfBirth
+                      "Enter You Birthday"
                     }
                   />
                 </Grid>
