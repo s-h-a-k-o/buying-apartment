@@ -67,7 +67,7 @@ const onSubmit = (values: FormValuesType, formikHelpaers: any) => {
 };
 
 const SignUp: FC = () => {
-  const [value, setValue] = useState<Dayjs | null | FormValuesType>(null); //????
+  const [value, setValue] = useState<Dayjs | null >(null); //????
 
   return (
     <Container component="main" maxWidth="xs" sx={{ minHeight: "100vh" }}>
@@ -204,6 +204,7 @@ const SignUp: FC = () => {
                           id="dateOfBirth"
                           name="dateOfBirth"
                           as={TextField}
+                          required
                           fullWidth
                           error={
                             Boolean(formik.errors.confirmPassword) &&
