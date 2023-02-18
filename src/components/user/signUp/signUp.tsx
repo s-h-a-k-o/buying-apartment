@@ -54,7 +54,10 @@ const validationSchema = Yup.object().shape({
     .required("Required!")
     .min(6)
     .max(14)
-    .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
+    .matches(
+      /[a-zA-Z][1-9]/,
+      "Password can only contain Latin letters and min 1 number."
+    ),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), ""], "Password must match")
     .required("Required!"),
@@ -100,7 +103,6 @@ const SignUp: FC = () => {
           onSubmit={onSubmit}
         >
           {(formik) => (
-            
             <Form className="mt-5">
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
