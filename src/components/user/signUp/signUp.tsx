@@ -30,6 +30,7 @@ interface FormValuesType {
   password: string;
   confirmPassword: string;
   dateOfBirth: string;
+  phoneNumber: string;
 }
 
 const initialValues: FormValuesType = {
@@ -39,7 +40,11 @@ const initialValues: FormValuesType = {
   password: "",
   confirmPassword: "",
   dateOfBirth: "",
+  phoneNumber: "",
 };
+
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required("Required!"),
@@ -53,13 +58,15 @@ const validationSchema = Yup.object().shape({
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), ""], "Password must match")
     .required("Required!"),
-  // dateOfBirth: Yup.date()
-  //   .nullable()
-  //   // .test("dateOfBirth", "You must be 18 years or older", function (value) {
-  //   //   return moment().diff(moment(value, "YYYY-MM-DD"), "years") >= 18;
-  //   // })
-  //   .required("Please enter your age"),
-  dateOfBirth: Yup.date().nullable().required("Required!"),
+  dateOfBirth: Yup.date()
+    .nullable()
+    .test("dateOfBirth", "You must be 18 years or older", function (value) {
+      return moment().diff(moment(value, "YYYY-MM-DD"), "years") >= 18;
+    })
+    .required("Required!"),
+  phoneNumber: Yup.string()
+    .matches(phoneRegExp, "Phone number is not valid")
+    .required("Enter Your Phone Number"),
 });
 
 const onSubmit = (values: FormValuesType, formikHelpaers: any) => {
@@ -93,6 +100,7 @@ const SignUp: FC = () => {
           onSubmit={onSubmit}
         >
           {(formik) => (
+            
             <Form className="mt-5">
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
@@ -225,8 +233,6 @@ const SignUp: FC = () => {
                     id="dateOfBirth"
                     name="dateOfBirth"
                     as={TextField}
-                    //  focused
-                    //  label="Birthday"
                     required
                     fullWidth
                     error={
@@ -234,9 +240,27 @@ const SignUp: FC = () => {
                       Boolean(formik.touched.dateOfBirth)
                     }
                     helperText={
-                      // Boolean(formik.touched.dateOfBirth) &&
-                      // formik.errors.dateOfBirth
-                      "Enter You Birthday"
+                      Boolean(formik.touched.confirmPassword) &&
+                      formik.errors.confirmPassword
+                    }
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Field
+                    type="number"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    as={TextField}
+                    label="Phone Number"
+                    required
+                    fullWidth
+                    error={
+                      Boolean(formik.errors.phoneNumber) &&
+                      Boolean(formik.touched.phoneNumber)
+                    }
+                    helperText={
+                      Boolean(formik.touched.phoneNumber) &&
+                      formik.errors.phoneNumber
                     }
                   />
                 </Grid>
