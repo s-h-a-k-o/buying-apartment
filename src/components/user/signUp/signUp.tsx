@@ -240,8 +240,8 @@ const SignUp: FC = () => {
                       Boolean(formik.touched.dateOfBirth)
                     }
                     helperText={
-                      Boolean(formik.touched.confirmPassword) &&
-                      formik.errors.confirmPassword
+                      Boolean(formik.touched.dateOfBirth) &&
+                      formik.errors.dateOfBirth
                     }
                   />
                 </Grid>
