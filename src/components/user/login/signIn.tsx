@@ -1,7 +1,6 @@
 import { FC } from "react";
 
 import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -14,29 +13,16 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 
-const initialValues = {
-  email: "",
-  password: "",
-  // modeOfContact: "",
-  //  phoneNumber: "",
-};
+// initialvalues and validation for login form
+import { initialValues } from "../formValidation/loginValidation";
+import { validationSchema } from "../formValidation/loginValidation";
 
-const validationSchema = Yup.object({
-  email: Yup.string().email("Invalid email format").required("Required!"),
-  password: Yup.string().required("Required!"),
-  // modeOfContact: Yup.string().required("Required!"),
-  // phoneNumber: Yup.string().when("modeOfContact", {
-  //   is: "telephonemoc",
-  //   then: Yup.string().required("Required"),
-  // }),
-});
 const onSubmit = (values: any) => {
   console.log(values);
 };

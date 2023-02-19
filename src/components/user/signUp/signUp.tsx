@@ -1,7 +1,6 @@
 import { FC, useState } from "react";
 
 import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -16,61 +15,15 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-import moment from "moment";
-
 import { Dayjs } from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers";
+// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+// import { DatePicker } from "@mui/x-date-pickers";
 
-interface FormValuesType {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  dateOfBirth: string;
-  phoneNumber: string;
-}
-
-const initialValues: FormValuesType = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-  dateOfBirth: "",
-  phoneNumber: "",
-};
-
-const phoneRegExp =
-  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
-const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required("Required!"),
-  lastName: Yup.string().required("Required!"),
-  email: Yup.string().email("Invalid email format").required("Required!"),
-  password: Yup.string()
-    .required("Required!")
-    .min(6)
-    .max(14)
-    .matches(
-      /[a-zA-Z][1-9]/,
-      "Password can only contain Latin letters and min 1 number."
-    ),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), ""], "Password must match")
-    .required("Required!"),
-  dateOfBirth: Yup.date()
-    .nullable()
-    .test("dateOfBirth", "You must be 18 years or older", function (value) {
-      return moment().diff(moment(value, "YYYY-MM-DD"), "years") >= 18;
-    })
-    .required("Required!"),
-  phoneNumber: Yup.string()
-    .matches(phoneRegExp, "Phone number is not valid")
-    .required("Enter Your Phone Number"),
-});
+//validation and initialvalues for signup form
+import { FormValuesType } from "../formValidation/signupValidation";
+import { initialValues } from "../formValidation/signupValidation";
+import { validationSchema } from "../formValidation/signupValidation";
 
 const onSubmit = (values: FormValuesType, formikHelpaers: any) => {
   console.log(values);
