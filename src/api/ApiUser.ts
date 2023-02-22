@@ -1,4 +1,4 @@
-import { ApiWrapper } from "./apiWrapper";
+import { ApiWrapper } from "./ApiWrapper";
 
 export class ApiUser {
   constructor(private readonly req: ApiWrapper) {}
@@ -7,7 +7,20 @@ export class ApiUser {
     username: string;
     password: string;
   }): Promise<any> => {
-    const { data } = await this.req.POST<any>("/login", body); //  /auth/login
+    const { data } = await this.req.POST<any>("auth/login", body); //  /auth/login
+    return data;
+  };
+
+  signup = async (body: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    dateOfBirth: string;
+    phoneNumber: string;
+  }): Promise<any> => {
+    const { data } = await this.req.POST<any>("auth/signup", body);
     return data;
   };
 }

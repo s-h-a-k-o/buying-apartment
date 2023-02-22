@@ -1,4 +1,4 @@
-import { ApiWrapper } from "./apiWrapper";
+import { ApiWrapper } from "./ApiWrapper";
 import { ApiUser } from "./ApiUser";
 
 class Api {

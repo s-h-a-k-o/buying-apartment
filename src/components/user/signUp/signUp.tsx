@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, FormikHelpers } from "formik";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -16,18 +16,40 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
 import { Dayjs } from "dayjs";
-// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import { DatePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers";
 
 //validation and initialvalues for signup form
 import { FormValuesType } from "../formValidation/signupValidation";
 import { initialValues } from "../formValidation/signupValidation";
 import { validationSchema } from "../formValidation/signupValidation";
+import { API } from "@/api/Api";
 
-const onSubmit = (values: FormValuesType, formikHelpaers: any) => {
+const onSubmit = async (
+  values: FormValuesType,
+  formikHelpers: FormikHelpers<FormValuesType>
+) => {
   console.log(values);
-  formikHelpaers.resetForm();
+  formikHelpers.setSubmitting(true);
+  const sendObj = {
+    firstName: values.firstName,
+    lastName: values.lastName,
+    email: values.email,
+    password: values.password,
+    confirmPassword: values.confirmPassword,
+    dateOfBirth: values.dateOfBirth,
+    phoneNumber: values.phoneNumber,
+  };
+
+  try {
+    await API.user.signup(sendObj);
+    formikHelpers.resetForm();
+  } catch (err) {
+    console.log(err);
+  } finally {
+    formikHelpers.setSubmitting(false);
+  }
 };
 
 const SignUp: FC = () => {
@@ -154,7 +176,7 @@ const SignUp: FC = () => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  {/* {" "}
+                  {" "}
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label="Birthday"
@@ -163,11 +185,10 @@ const SignUp: FC = () => {
                         setValue(newValue);
                       }}
                       renderInput={(params) => (
-                        <Field
+                        <TextField
                           type="date"
                           id="dateOfBirth"
                           name="dateOfBirth"
-                          as={TextField}
                           required
                           fullWidth
                           error={
@@ -180,10 +201,27 @@ const SignUp: FC = () => {
                           }
                           {...params}
                         />
+                        // <Field
+                        //   type="date"
+                        //   id="dateOfBirth"
+                        //   name="dateOfBirth"
+                        //   as={TextField}
+                        //   required
+                        //   fullWidth
+                        //   error={
+                        //     Boolean(formik.errors.dateOfBirth) &&
+                        //     Boolean(formik.touched.dateOfBirth)
+                        //   }
+                        //   helperText={
+                        //     Boolean(formik.touched.dateOfBirth) &&
+                        //     formik.errors.dateOfBirth
+                        //   }
+                        //   {...params}
+                        // />
                       )}
                     />
-                  </LocalizationProvider> */}
-                  <Field
+                  </LocalizationProvider>
+                  {/* <Field
                     type="date"
                     id="dateOfBirth"
                     name="dateOfBirth"
@@ -198,11 +236,11 @@ const SignUp: FC = () => {
                       Boolean(formik.touched.dateOfBirth) &&
                       formik.errors.dateOfBirth
                     }
-                  />
+                  /> */}
                 </Grid>
                 <Grid item xs={12}>
                   <Field
-                    type="number"
+                    type="tel"
                     id="phoneNumber"
                     name="phoneNumber"
                     as={TextField}
