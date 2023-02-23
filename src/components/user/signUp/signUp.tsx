@@ -52,8 +52,8 @@ const onSubmit = async (
 };
 
 const SignUp: FC = () => {
-  const maxDate = new Date();
-  maxDate.setFullYear(maxDate.getFullYear() - 18);
+  // const maxDate = new Date();
+  // maxDate.setFullYear(maxDate.getFullYear() - 18);
 
   return (
     <Container component="main" maxWidth="xs" sx={{ minHeight: "100vh" }}>
