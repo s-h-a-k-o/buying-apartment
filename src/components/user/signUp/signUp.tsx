@@ -52,7 +52,6 @@ const onSubmit = async (
 };
 
 const SignUp: FC = () => {
-
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 18);
 
@@ -179,11 +178,11 @@ const SignUp: FC = () => {
                 <Grid item xs={12}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
-                      label="Birthday"
+                      label="Your Age (18+)"
                       value={formik.values.dateOfBirth}
                       maxDate={maxDate}
                       onChange={(newValue) => {
-                        formik.setFieldValue('dateOfBirth', newValue);
+                        formik.setFieldValue("dateOfBirth", newValue);
                       }}
                       renderInput={(params) => (
                         <Field
@@ -203,42 +202,9 @@ const SignUp: FC = () => {
                             formik.errors.dateOfBirth
                           }
                         />
-                        // <Field
-                        //   type="date"
-                        //   id="dateOfBirth"
-                        //   name="dateOfBirth"
-                        //   as={TextField}
-                        //   required
-                        //   fullWidth
-                        //   error={
-                        //     Boolean(formik.errors.dateOfBirth) &&
-                        //     Boolean(formik.touched.dateOfBirth)
-                        //   }
-                        //   helperText={
-                        //     Boolean(formik.touched.dateOfBirth) &&
-                        //     formik.errors.dateOfBirth
-                        //   }
-                        //   {...params}
-                        // />
                       )}
                     />
                   </LocalizationProvider>
-                  {/* <Field
-                    type="date"
-                    id="dateOfBirth"
-                    name="dateOfBirth"
-                    as={TextField}
-                    required
-                    fullWidth
-                    error={
-                      Boolean(formik.errors.dateOfBirth) &&
-                      Boolean(formik.touched.dateOfBirth)
-                    }
-                    helperText={
-                      Boolean(formik.touched.dateOfBirth) &&
-                      formik.errors.dateOfBirth
-                    }
-                  /> */}
                 </Grid>
                 <Grid item xs={12}>
                   <Field
