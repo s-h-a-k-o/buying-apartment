@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 
 import { Formik, Form, Field, FormikHelpers } from "formik";
 
@@ -15,7 +15,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-import { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -53,7 +52,9 @@ const onSubmit = async (
 };
 
 const SignUp: FC = () => {
-  const [value, setValue] = useState<Dayjs | null>(null); //????
+
+  const maxDate = new Date();
+  maxDate.setFullYear(maxDate.getFullYear() - 18);
 
   return (
     <Container component="main" maxWidth="xs" sx={{ minHeight: "100vh" }}>
@@ -176,16 +177,18 @@ const SignUp: FC = () => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  {" "}
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label="Birthday"
-                      value={value}
+                      value={formik.values.dateOfBirth}
+                      maxDate={maxDate}
                       onChange={(newValue) => {
-                        setValue(newValue);
+                        formik.setFieldValue('dateOfBirth', newValue);
                       }}
                       renderInput={(params) => (
-                        <TextField
+                        <Field
+                          {...params}
+                          as={TextField}
                           type="date"
                           id="dateOfBirth"
                           name="dateOfBirth"
@@ -199,7 +202,6 @@ const SignUp: FC = () => {
                             Boolean(formik.touched.dateOfBirth) &&
                             formik.errors.dateOfBirth
                           }
-                          {...params}
                         />
                         // <Field
                         //   type="date"
