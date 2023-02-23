@@ -7,7 +7,7 @@ export class ApiUser {
     username: string;
     password: string;
   }): Promise<any> => {
-    const { data } = await this.req.POST<any>("auth/login", body); //  /auth/login
+    const { data } = await this.req.POST<any>("auth/login", body);
     return data;
   };
 

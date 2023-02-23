@@ -180,7 +180,7 @@ const SignUp: FC = () => {
                     <DatePicker
                       label="Your Age (18+)"
                       value={formik.values.dateOfBirth}
-                      maxDate={maxDate}
+                      //  maxDate={maxDate}
                       onChange={(newValue) => {
                         formik.setFieldValue("dateOfBirth", newValue);
                       }}
