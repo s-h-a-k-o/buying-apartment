@@ -1,17 +1,8 @@
 import * as Yup from "yup";
 import moment from "moment";
+import { SignUpType } from "@/models/user";
 
-export interface FormValuesType {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  dateOfBirth: string;
-  phoneNumber: string;
-}
-
-export const initialValues: FormValuesType = {
+export const initialValues: SignUpType = {
   firstName: "",
   lastName: "",
   email: "",
@@ -43,7 +34,7 @@ export const validationSchema = Yup.object().shape({
     .nullable()
     .test(
       "dateOfBirth",
-      "Enter your date of birth. You must be 18 years or older",
+      "Required! You must be 18 years or older",
       function (value) {
         return moment().diff(moment(value, "YYYY-MM-DD"), "years") >= 18;
       }

@@ -106,7 +106,7 @@ const MainNavigation: FC = () => {
                   color: "black",
                 }}
               >
-                Property Type
+                Apartments Type
               </Typography>
               {bottomBorder}
               <Box

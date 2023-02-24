@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, FormikHelpers } from "formik";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -13,24 +13,32 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
 
 // initialvalues and validation for login form
 import { initialValues } from "../formValidation/loginValidation";
 import { validationSchema } from "../formValidation/loginValidation";
+import { SignInType } from "@/models/user";
 
-const onSubmit = (values: any) => {
+import { API } from "@/api/Api";
+
+const onSubmit = async (
+  values: SignInType,
+  formikHelpers: FormikHelpers<SignInType>
+) => {
   console.log(values);
-};
+  formikHelpers.setSubmitting(true);
+  const sendObj = { email: values.email, password: values.password };
 
-const options = [
-  { key: "Email", value: "emailmoc" },
-  { key: "Telephone", value: "telephonemoc" },
-];
+  try {
+    await API.user.login(sendObj);
+    formikHelpers.resetForm();
+  } catch (err) {
+    console.log(err);
+  } finally {
+    formikHelpers.setSubmitting(false);
+  }
+};
 
 const SignIn: FC = () => {
   return (
@@ -57,62 +65,7 @@ const SignIn: FC = () => {
         >
           {(formik) => (
             <Form className="mt-5">
-              {/* <Box>
-                <label>Mode Of Contact</label>
-                <Field
-                  type="radio"
-                  name="modeOfContact"
-                  id="modeOfContact"
-                  label="Mode of contact"
-                  options={options}
-                >
-                  {({ field }: any) => {
-                    return options.map((option) => {
-                      return (
-                        <div key={option.key} className="mt-2">
-                          <input
-                            type="radio"
-                            id={option.key}
-                            {...field}
-                            value={option.value}
-                            checked={field.value === option.value}
-                            error={
-                              Boolean(formik.errors.modeOfContact) &&
-                              Boolean(formik.touched.modeOfContact)
-                            }
-                            helperText={
-                              Boolean(formik.touched.modeOfContact) &&
-                              formik.errors.modeOfContact
-                            }
-                          />
-                          <label htmlFor={option.value} className="pl-2">
-                            {option.key}
-                          </label>
-                        </div>
-                      );
-                    });
-                  }}
-                </Field>
-                <Field
-                  type="number"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  as={TextField}
-                  label="Phone Number"
-                  required
-                  fullWidth
-                  error={
-                    Boolean(formik.errors.phoneNumber) &&
-                    Boolean(formik.touched.phoneNumber)
-                  }
-                  helperText={
-                    Boolean(formik.touched.phoneNumber) &&
-                    formik.errors.phoneNumber
-                  }
-                />
-              </Box> */}
               <Field
-                //  type="text"
                 id="email"
                 name="email"
                 as={TextField}
@@ -120,7 +73,7 @@ const SignIn: FC = () => {
                 required
                 fullWidth
                 margin="normal"
-                label="Email Address or Phone Number"
+                label="Email Address"
                 error={
                   Boolean(formik.errors.email) && Boolean(formik.touched.email)
                 }

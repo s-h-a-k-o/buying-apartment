@@ -4,7 +4,7 @@ export class ApiUser {
   constructor(private readonly req: ApiWrapper) {}
 
   login = async (body: {
-    username: string;
+    email: string;
     password: string;
   }): Promise<any> => {
     const { data } = await this.req.POST<any>("auth/login", body);

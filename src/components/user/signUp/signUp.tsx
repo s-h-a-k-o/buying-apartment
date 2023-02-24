@@ -20,14 +20,14 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers";
 
 //validation and initialvalues for signup form
-import { FormValuesType } from "../formValidation/signupValidation";
+import { SignUpType } from "@/models/user";
 import { initialValues } from "../formValidation/signupValidation";
 import { validationSchema } from "../formValidation/signupValidation";
 import { API } from "@/api/Api";
 
 const onSubmit = async (
-  values: FormValuesType,
-  formikHelpers: FormikHelpers<FormValuesType>
+  values: SignUpType,
+  formikHelpers: FormikHelpers<SignUpType>
 ) => {
   console.log(values);
   formikHelpers.setSubmitting(true);
