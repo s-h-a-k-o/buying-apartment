@@ -175,7 +175,7 @@ const MainNavigation: FC = () => {
               Apartments
             </Button>
             <Button color="inherit" sx={{ color: "black", fontWeight: "bold" }}>
-              Contact
+              <Link href="/contact">Contact</Link>
             </Button>
             <Link href="/user/login">
               <Button

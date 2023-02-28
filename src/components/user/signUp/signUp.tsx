@@ -52,8 +52,8 @@ const onSubmit = async (
 };
 
 const SignUp: FC = () => {
-  // const maxDate = new Date();
-  // maxDate.setFullYear(maxDate.getFullYear() - 18);
+  const maxDate = new Date();
+  maxDate.setFullYear(maxDate.getFullYear() - 18);
 
   return (
     <Container component="main" maxWidth="xs" sx={{ minHeight: "100vh" }}>
@@ -180,7 +180,7 @@ const SignUp: FC = () => {
                     <DatePicker
                       label="Your Age (18+)"
                       value={formik.values.dateOfBirth}
-                      //  maxDate={maxDate}
+                      maxDate={maxDate}
                       onChange={(newValue) => {
                         formik.setFieldValue("dateOfBirth", newValue);
                       }}
