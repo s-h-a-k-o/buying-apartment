@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import { Formik, Form, Field, FormikHelpers } from "formik";
 
@@ -22,27 +22,35 @@ import { SignInType } from "@/models/user";
 
 import { API } from "@/api/Api";
 
-const onSubmit = async (
-  values: SignInType,
-  formikHelpers: FormikHelpers<SignInType>
-) => {
-  console.log(values);
-  formikHelpers.setSubmitting(true);
-  const sendObj = { email: values.email, password: values.password };
-
-  try {
-    const response: {token: string} = await API.user.login(sendObj);
-    formikHelpers.resetForm();
-    API.http.defaults.headers.common['Authorization'] = response.token ? `Bearer ${response.token}` : '';
-
-  } catch (err) {
-    console.log(err);
-  } finally {
-    formikHelpers.setSubmitting(false);
-  }
-};
-
 const SignIn: FC = () => {
+  const [emailError, setEmailError] = useState(false);
+
+  const onSubmit = async (
+    values: SignInType,
+    formikHelpers: FormikHelpers<SignInType>
+  ) => {
+    console.log(values);
+    formikHelpers.setSubmitting(true);
+    const sendObj = { email: values.email, password: values.password };
+
+    try {
+      const response: { token: string } = await API.user.login(sendObj);
+      formikHelpers.resetForm();
+      API.http.defaults.headers.common["Authorization"] = response.token
+        ? `Bearer ${response.token}`
+        : "";
+    } catch (err: any) {
+      console.log(err.response);
+      if (
+        err.response?.status === 403 &&
+        err.response?.data.message === "invalid_user_or_password"
+      ) {
+        setEmailError(true);
+      }
+    } finally {
+      formikHelpers.setSubmitting(false);
+    }
+  };
   return (
     <Container component="main" maxWidth="xs" sx={{ minHeight: "100vh" }}>
       <CssBaseline />
