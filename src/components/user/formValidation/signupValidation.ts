@@ -25,21 +25,21 @@ export const validationSchema = Yup.object().shape({
     .max(14)
     .matches(
       /[a-zA-Z][1-9]/,
-      "Password can only contain Latin letters and min 1 number."
+      "Password can only contain Latin letters and min one number."
     ),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), ""], "Password must match")
     .required("Required!"),
   dateOfBirth: Yup.date()
     .nullable()
-    .test(
-      "dateOfBirth",
-      "Required! You must be 18 years or older",
-      function (value) {
-        return moment().diff(moment(value, "YYYY-MM-DD"), "years") >= 18;
-      }
-    )
-    .required("Required!"),
+    // .test(
+    //   "dateOfBirth",
+    //   "Required! You must be 18 years or older",
+    //   function (value) {
+    //     return moment().diff(moment(value, "YYYY-MM-DD"), "years") >= 18;
+    //   }
+    // )
+    .required("Required! You must be 18 years or older"),
   phoneNumber: Yup.string()
     .matches(phoneRegExp, "Phone number is not valid")
     .required("Enter Your Phone Number"),
