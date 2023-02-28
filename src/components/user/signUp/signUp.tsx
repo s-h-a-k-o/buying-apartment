@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import { Formik, Form, Field, FormikHelpers } from "formik";
 
@@ -24,36 +24,41 @@ import { SignUpType } from "@/models/user";
 import { initialValues } from "../formValidation/signupValidation";
 import { validationSchema } from "../formValidation/signupValidation";
 import { API } from "@/api/Api";
-
-const onSubmit = async (
-  values: SignUpType,
-  formikHelpers: FormikHelpers<SignUpType>
-) => {
-  console.log(values);
-  formikHelpers.setSubmitting(true);
-  const sendObj = {
-    firstName: values.firstName,
-    lastName: values.lastName,
-    email: values.email,
-    password: values.password,
-    confirmPassword: values.confirmPassword,
-    dateOfBirth: values.dateOfBirth,
-    phoneNumber: values.phoneNumber,
-  };
-
-  try {
-    await API.user.signup(sendObj);
-    formikHelpers.resetForm();
-  } catch (err) {
-    console.log(err);
-  } finally {
-    formikHelpers.setSubmitting(false);
-  }
-};
+import { AxiosError } from 'axios';
 
 const SignUp: FC = () => {
-  // const maxDate = new Date();
-  // maxDate.setFullYear(maxDate.getFullYear() - 18);
+  const [emailError, setEmailError] = useState(false)
+  const maxDate = new Date();
+  maxDate.setFullYear(maxDate.getFullYear() - 18);
+
+  const onSubmit = async (
+          values: SignUpType,
+          formikHelpers: FormikHelpers<SignUpType>
+  ) => {
+    console.log(values);
+    formikHelpers.setSubmitting(true);
+    const sendObj = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+      password: values.password,
+      confirmPassword: values.confirmPassword,
+      dateOfBirth: values.dateOfBirth,
+      phoneNumber: values.phoneNumber,
+    };
+
+    try {
+      await API.user.signup(sendObj);
+      formikHelpers.resetForm();
+    } catch (err: any) {
+      console.log(err.response);
+      if (err.response?.status === 409 && err.response?.data.message === 'email_already_exists') {
+        setEmailError(true)
+      }
+    } finally {
+      formikHelpers.setSubmitting(false);
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs" sx={{ minHeight: "100vh" }}>
@@ -124,18 +129,20 @@ const SignUp: FC = () => {
                     type="email"
                     id="email"
                     name="email"
-                    as={TextField}
+                    // as={TextField}
                     autoComplete="email"
                     required
                     fullWidth
                     label="Email Address"
-                    error={
-                      Boolean(formik.errors.email) &&
-                      Boolean(formik.touched.email)
-                    }
-                    helperText={
-                      Boolean(formik.touched.email) && formik.errors.email
-                    }
+                    render={(props: any) => (<TextField
+                            fullWidth {...props}
+                            onKeyUp={() => setEmailError(false)}
+                            error={
+                            (Boolean(formik.errors.email) &&
+                                    Boolean(formik.touched.email)) || emailError }
+                            helperText={emailError ? 'Email already exists' :
+                                                                Boolean(formik.touched.email) && formik.errors.email
+                                                        }/>)}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -179,8 +186,8 @@ const SignUp: FC = () => {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label="Your Age (18+)"
-                      value={formik.values.dateOfBirth}
-                      //  maxDate={maxDate}
+                      value={formik.values.dateOfBirth || null}
+                      maxDate={maxDate}
                       onChange={(newValue) => {
                         formik.setFieldValue("dateOfBirth", newValue);
                       }}
