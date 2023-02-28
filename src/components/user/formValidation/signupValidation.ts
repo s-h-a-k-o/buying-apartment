@@ -32,13 +32,6 @@ export const validationSchema = Yup.object().shape({
     .required("Required!"),
   dateOfBirth: Yup.date()
     .nullable()
-    // .test(
-    //   "dateOfBirth",
-    //   "Required! You must be 18 years or older",
-    //   function (value) {
-    //     return moment().diff(moment(value, "YYYY-MM-DD"), "years") >= 18;
-    //   }
-    // )
     .required("Required! You must be 18 years or older"),
   phoneNumber: Yup.string()
     .matches(phoneRegExp, "Phone number is not valid")

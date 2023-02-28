@@ -24,16 +24,16 @@ import { SignUpType } from "@/models/user";
 import { initialValues } from "../formValidation/signupValidation";
 import { validationSchema } from "../formValidation/signupValidation";
 import { API } from "@/api/Api";
-import { AxiosError } from 'axios';
+import { AxiosError } from "axios";
 
 const SignUp: FC = () => {
-  const [emailError, setEmailError] = useState(false)
+  const [emailError, setEmailError] = useState(false);
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 18);
 
   const onSubmit = async (
-          values: SignUpType,
-          formikHelpers: FormikHelpers<SignUpType>
+    values: SignUpType,
+    formikHelpers: FormikHelpers<SignUpType>
   ) => {
     console.log(values);
     formikHelpers.setSubmitting(true);
@@ -52,8 +52,11 @@ const SignUp: FC = () => {
       formikHelpers.resetForm();
     } catch (err: any) {
       console.log(err.response);
-      if (err.response?.status === 409 && err.response?.data.message === 'email_already_exists') {
-        setEmailError(true)
+      if (
+        err.response?.status === 409 &&
+        err.response?.data.message === "email_already_exists"
+      ) {
+        setEmailError(true);
       }
     } finally {
       formikHelpers.setSubmitting(false);
@@ -131,18 +134,26 @@ const SignUp: FC = () => {
                     name="email"
                     // as={TextField}
                     autoComplete="email"
-                    required
-                    fullWidth
                     label="Email Address"
-                    render={(props: any) => (<TextField
-                            fullWidth {...props}
-                            onKeyUp={() => setEmailError(false)}
-                            error={
-                            (Boolean(formik.errors.email) &&
-                                    Boolean(formik.touched.email)) || emailError }
-                            helperText={emailError ? 'Email already exists' :
-                                                                Boolean(formik.touched.email) && formik.errors.email
-                                                        }/>)}
+                    render={(props: any) => (
+                      <TextField
+                        required
+                        fullWidth
+                        {...props}
+                        onKeyUp={() => setEmailError(false)}
+                        error={
+                          (Boolean(formik.errors.email) &&
+                            Boolean(formik.touched.email)) ||
+                          emailError
+                        }
+                        helperText={
+                          emailError
+                            ? "Email already exists"
+                            : Boolean(formik.touched.email) &&
+                              formik.errors.email
+                        }
+                      />
+                    )}
                   />
                 </Grid>
                 <Grid item xs={12}>
