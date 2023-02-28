@@ -31,11 +31,10 @@ const onSubmit = async (
   const sendObj = { email: values.email, password: values.password };
 
   try {
-    const response: { token: string } = await API.user.login(sendObj);
+    const response: {token: string} = await API.user.login(sendObj);
     formikHelpers.resetForm();
-    API.http.defaults.headers.common["Authorization"] = response.token
-      ? `Bearer ${response.token}`
-      : "";
+    API.http.defaults.headers.common['Authorization'] = response.token ? `Bearer ${response.token}` : '';
+
   } catch (err) {
     console.log(err);
   } finally {
