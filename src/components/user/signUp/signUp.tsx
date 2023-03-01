@@ -129,14 +129,13 @@ const SignUp: FC = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <Field
-                    type="email"
-                    id="email"
-                    name="email"
-                    // as={TextField}
-                    autoComplete="email"
-                    label="Email Address"
                     render={(props: any) => (
                       <TextField
+                        type="email"
+                        id="email"
+                        name="email"
+                        autoComplete="email"
+                        label="Email Address"
                         required
                         fullWidth
                         {...props}
