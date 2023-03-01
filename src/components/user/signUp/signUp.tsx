@@ -24,7 +24,6 @@ import { SignUpType } from "@/models/user";
 import { initialValues } from "../formValidation/signupValidation";
 import { validationSchema } from "../formValidation/signupValidation";
 import { API } from "@/api/Api";
-import { AxiosError } from "axios";
 
 const SignUp: FC = () => {
   const [emailError, setEmailError] = useState(false);
@@ -128,27 +127,30 @@ const SignUp: FC = () => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Field
-                    render={(props: any) => (
+                  <Field name="email">
+                    {({ field }: any) => (
                       <TextField
+                        {...field}
                         type="email"
                         id="email"
-                        name="email"
                         autoComplete="email"
                         label="Email Address"
                         required
                         fullWidth
                         onKeyUp={() => setEmailError(false)}
                         error={
-                              (Boolean(formik.errors.email) &&
-                                      Boolean(formik.touched.email)) ||
-                              emailError
+                          (Boolean(formik.errors.email) &&
+                            Boolean(formik.touched.email)) ||
+                          emailError
                         }
-                        helperText={emailError ? "Email already exists"
-                                  : Boolean(formik.touched.email) &&
-                                  formik.errors.email
+                        helperText={
+                          emailError
+                            ? "Email already exists"
+                            : Boolean(formik.touched.email) &&
+                              formik.errors.email
                         }
-                    />)}
+                      />
+                    )}
                   </Field>
                 </Grid>
                 <Grid item xs={12}>

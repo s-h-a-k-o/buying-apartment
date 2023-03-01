@@ -39,6 +39,7 @@ const SignIn: FC = () => {
       API.http.defaults.headers.common["Authorization"] = response.token
         ? `Bearer ${response.token}`
         : "";
+      setEmailError(false);
     } catch (err: any) {
       console.log(err.response);
       if (
@@ -75,23 +76,30 @@ const SignIn: FC = () => {
         >
           {(formik) => (
             <Form className="mt-5">
-              <Field
-                id="email"
-                name="email"
-                as={TextField}
-                autoComplete="given-email"
-                required
-                fullWidth
-                margin="normal"
-                label="Email Address"
-                error={
-                  Boolean(formik.errors.email) && Boolean(formik.touched.email)
-                }
-                helperText={
-                  Boolean(formik.touched.email) && formik.errors.email
-                }
-              />
-
+              <Field name="email">
+                {({ field }: any) => (
+                  <TextField
+                    {...field}
+                    type="email"
+                    id="email"
+                    autoComplete="email"
+                    label="Email Address"
+                    required
+                    fullWidth
+                    onKeyUp={() => setEmailError(false)}
+                    error={
+                      (Boolean(formik.errors.email) &&
+                        Boolean(formik.touched.email)) ||
+                      emailError
+                    }
+                    helperText={
+                      emailError
+                        ? "invalid_user_or_password"
+                        : Boolean(formik.touched.email) && formik.errors.email
+                    }
+                  />
+                )}
+              </Field>
               <Field
                 type="password"
                 id="password"
