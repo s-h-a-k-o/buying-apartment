@@ -138,22 +138,18 @@ const SignUp: FC = () => {
                         label="Email Address"
                         required
                         fullWidth
-                        {...props}
                         onKeyUp={() => setEmailError(false)}
                         error={
-                          (Boolean(formik.errors.email) &&
-                            Boolean(formik.touched.email)) ||
-                          emailError
+                              (Boolean(formik.errors.email) &&
+                                      Boolean(formik.touched.email)) ||
+                              emailError
                         }
-                        helperText={
-                          emailError
-                            ? "Email already exists"
-                            : Boolean(formik.touched.email) &&
-                              formik.errors.email
+                        helperText={emailError ? "Email already exists"
+                                  : Boolean(formik.touched.email) &&
+                                  formik.errors.email
                         }
-                      />
-                    )}
-                  />
+                    />)}
+                  </Field>
                 </Grid>
                 <Grid item xs={12}>
                   <Field
