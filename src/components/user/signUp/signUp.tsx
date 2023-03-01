@@ -128,33 +128,28 @@ const SignUp: FC = () => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Field
-                    type="email"
-                    id="email"
-                    name="email"
-                    // as={TextField}
-                    autoComplete="email"
-                    label="Email Address"
-                    render={(props: any) => (
+                  <Field name="email">
+                    {({ field }: any) => (
                       <TextField
+                        {...field}
+                        type="email"
+                        id="email"
+                        autoComplete="email"
+                        label="Email Address"
                         required
                         fullWidth
-                        {...props}
                         onKeyUp={() => setEmailError(false)}
                         error={
-                          (Boolean(formik.errors.email) &&
-                            Boolean(formik.touched.email)) ||
-                          emailError
+                              (Boolean(formik.errors.email) &&
+                                      Boolean(formik.touched.email)) ||
+                              emailError
                         }
-                        helperText={
-                          emailError
-                            ? "Email already exists"
-                            : Boolean(formik.touched.email) &&
-                              formik.errors.email
+                        helperText={emailError ? "Email already exists"
+                                  : Boolean(formik.touched.email) &&
+                                  formik.errors.email
                         }
-                      />
-                    )}
-                  />
+                    />)}
+                  </Field>
                 </Grid>
                 <Grid item xs={12}>
                   <Field
