@@ -14,6 +14,7 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { Alert } from "@mui/material";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -27,6 +28,7 @@ import { API } from "@/api/Api";
 
 const SignUp: FC = () => {
   const [emailError, setEmailError] = useState(false);
+  const [createAcc, setCreateAcc] = useState(false);
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 18);
 
@@ -49,6 +51,7 @@ const SignUp: FC = () => {
     try {
       await API.user.signup(sendObj);
       formikHelpers.resetForm();
+      setCreateAcc(true);
     } catch (err: any) {
       console.log(err.response);
       if (
@@ -59,6 +62,7 @@ const SignUp: FC = () => {
       }
     } finally {
       formikHelpers.setSubmitting(false);
+      setCreateAcc(false);
     }
   };
 
@@ -239,6 +243,11 @@ const SignUp: FC = () => {
                       formik.errors.phoneNumber
                     }
                   />
+                </Grid>
+                <Grid item xs={12}>
+                  {createAcc && (
+                    <Alert severity="success">creating account</Alert>
+                  )}
                 </Grid>
                 <Grid item xs={12}>
                   <FormControlLabel
