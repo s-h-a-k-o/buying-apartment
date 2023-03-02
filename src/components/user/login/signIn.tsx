@@ -34,12 +34,14 @@ const SignIn: FC = () => {
     const sendObj = { email: values.email, password: values.password };
 
     try {
-      const response: { token: string } = await API.user.login(sendObj);
+      const response: { token: string, _id: string } = await API.user.login(sendObj);
       formikHelpers.resetForm();
       API.http.defaults.headers.common["Authorization"] = response.token
         ? `Bearer ${response.token}`
         : "";
+      localStorage.setItem('token', response.token);
       setEmailError(false);
+      console.log(response._id);
     } catch (err: any) {
       console.log(err.response);
       if (
