@@ -3,10 +3,7 @@ import { ApiWrapper } from "./ApiWrapper";
 export class ApiUser {
   constructor(private readonly req: ApiWrapper) {}
 
-  login = async (body: {
-    email: string;
-    password: string;
-  }): Promise<any> => {
+  login = async (body: { email: string; password: string }): Promise<any> => {
     const { data } = await this.req.POST<any>("auth/login", body);
     return data;
   };
@@ -21,6 +18,11 @@ export class ApiUser {
     phoneNumber: string;
   }): Promise<any> => {
     const { data } = await this.req.POST<any>("auth/signup", body);
+    return data;
+  };
+
+  getUserData = async (userId: string): Promise<any> => {
+    const { data } = await this.req.GET<any>(`user/${userId}`);
     return data;
   };
 }

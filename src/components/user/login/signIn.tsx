@@ -21,9 +21,13 @@ import { validationSchema } from "../formValidation/loginValidation";
 import { SignInType } from "@/models/user";
 
 import { API } from "@/api/Api";
+import { useRouter } from "next/router";
 
 const SignIn: FC = () => {
   const [emailError, setEmailError] = useState(false);
+  const [logout, setLogout] = useState(false);
+
+  const router = useRouter();
 
   const onSubmit = async (
     values: SignInType,
@@ -34,14 +38,17 @@ const SignIn: FC = () => {
     const sendObj = { email: values.email, password: values.password };
 
     try {
-      const response: { token: string, _id: string } = await API.user.login(sendObj);
+      const response: { token: string; _id: string } = await API.user.login(
+        sendObj
+      );
       formikHelpers.resetForm();
       API.http.defaults.headers.common["Authorization"] = response.token
         ? `Bearer ${response.token}`
         : "";
-      localStorage.setItem('token', response.token);
+      localStorage.setItem("token", response.token);
       setEmailError(false);
-      console.log(response._id);
+      setLogout(true);
+      router.push(`/user/profile/${response._id}`);
     } catch (err: any) {
       console.log(err.response);
       if (

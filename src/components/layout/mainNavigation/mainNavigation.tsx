@@ -9,6 +9,8 @@ import LoginIcon from "@mui/icons-material/Login";
 import MainLeftSide from "./mainLeftSide/mainLeftSide";
 import ProfileMenu from "./profileMenu/ProfileMenu";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { Stack } from "@mui/system";
 
 const bottomBorder = (
   <Box
@@ -177,32 +179,46 @@ const MainNavigation: FC = () => {
             <Button color="inherit" sx={{ color: "black", fontWeight: "bold" }}>
               <Link href="/contact">Contact</Link>
             </Button>
-            <Link href="/user/login">
-              <Button
-                variant="outlined"
-                color="inherit"
-                startIcon={<LoginIcon />}
-                sx={{
-                  color: "blue",
-                  fontWeight: "bold",
-                  ml: 3,
-                }}
-              >
-                sign in
-              </Button>
-            </Link>
-            <Link href="/user/sign-up">
-              <Button
-                variant="outlined"
-                endIcon={<AppRegistrationIcon />}
-                sx={{
-                  fontWeight: "bold",
-                  ml: 2,
-                }}
-              >
-                Sign up
-              </Button>
-            </Link>
+
+            <Stack direction="row">
+              <Link href="/user/login">
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  startIcon={<LoginIcon />}
+                  sx={{
+                    color: "blue",
+                    fontWeight: "bold",
+                    ml: 3,
+                  }}
+                >
+                  sign in
+                </Button>
+              </Link>
+              <Link href="/user/sign-up">
+                <Button
+                  variant="outlined"
+                  endIcon={<AppRegistrationIcon />}
+                  sx={{
+                    fontWeight: "bold",
+                    ml: 2,
+                  }}
+                >
+                  Sign up
+                </Button>
+              </Link>
+            </Stack>
+
+            <Button
+              variant="outlined"
+              endIcon={<LogoutIcon />}
+              sx={{
+                fontWeight: "bold",
+                ml: 2,
+              }}
+            >
+              logout
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>{" "}

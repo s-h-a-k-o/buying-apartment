@@ -2,13 +2,16 @@ import * as Yup from "yup";
 import moment from "moment";
 import { SignUpType } from "@/models/user";
 
+const maxDate = new Date();
+maxDate.setFullYear(maxDate.getFullYear() - 18);
+
 export const initialValues: SignUpType = {
   firstName: "",
   lastName: "",
   email: "",
   password: "",
   confirmPassword: "",
-  dateOfBirth: "",
+  dateOfBirth: maxDate.toISOString(),
   phoneNumber: "",
 };
 
@@ -39,7 +42,7 @@ export const validationSchema = Yup.object().shape({
         return moment().diff(moment(value, "YYYY-MM-DD"), "years") >= 18;
       }
     )
-
+    // .typeError("")
     .required("Required! You must be 18 years or older"),
   phoneNumber: Yup.string()
     .matches(phoneRegExp, "Phone number is not valid")

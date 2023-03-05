@@ -36,7 +36,6 @@ const SignUp: FC = () => {
     values: SignUpType,
     formikHelpers: FormikHelpers<SignUpType>
   ) => {
-    console.log(values);
     formikHelpers.setSubmitting(true);
     const sendObj = {
       firstName: values.firstName,
@@ -51,7 +50,11 @@ const SignUp: FC = () => {
     try {
       await API.user.signup(sendObj);
       formikHelpers.resetForm();
+      console.log(values);
       setCreateAcc(true);
+      setTimeout(() => {
+        setCreateAcc(false);
+      }, 1500);
     } catch (err: any) {
       console.log(err.response);
       if (
@@ -62,7 +65,6 @@ const SignUp: FC = () => {
       }
     } finally {
       formikHelpers.setSubmitting(false);
-      setCreateAcc(false);
     }
   };
 
@@ -246,7 +248,7 @@ const SignUp: FC = () => {
                 </Grid>
                 <Grid item xs={12}>
                   {createAcc && (
-                    <Alert severity="success">creating account</Alert>
+                    <Alert severity="success">Registration is successful</Alert>
                   )}
                 </Grid>
                 <Grid item xs={12}>
