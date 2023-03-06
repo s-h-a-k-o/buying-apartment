@@ -33,7 +33,6 @@ const SignIn: FC = () => {
     values: SignInType,
     formikHelpers: FormikHelpers<SignInType>
   ) => {
-    console.log(values);
     formikHelpers.setSubmitting(true);
     const sendObj = { email: values.email, password: values.password };
 
@@ -42,10 +41,7 @@ const SignIn: FC = () => {
         sendObj
       );
       formikHelpers.resetForm();
-      API.http.defaults.headers.common["Authorization"] = response.token
-        ? `Bearer ${response.token}`
-        : "";
-      localStorage.setItem("token", response.token);
+      API.setToken(response.token)
       setEmailError(false);
       setLogout(true);
       router.push(`/user/profile/${response._id}`);
