@@ -11,6 +11,11 @@ import ProfileMenu from "./profileMenu/ProfileMenu";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Stack } from "@mui/system";
+import { API } from "@/api/Api";
+import { useRouter } from "next/router";
+
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "@/store/auth-slice";
 
 const bottomBorder = (
   <Box
@@ -23,9 +28,19 @@ const bottomBorder = (
 );
 
 const MainNavigation: FC = () => {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
+  const logoutBtn = useSelector((state: any) => state.auth.isAuth);
+  const dispatch = useDispatch();
+
   const open = Boolean(anchorEl);
+
+  const logoutHandler = () => {
+    API.setToken("");
+    router.push("/user/login");
+    dispatch(authActions.logout());
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -180,45 +195,50 @@ const MainNavigation: FC = () => {
               <Link href="/contact">Contact</Link>
             </Button>
 
-            <Stack direction="row">
-              <Link href="/user/login">
-                <Button
-                  variant="outlined"
-                  color="inherit"
-                  startIcon={<LoginIcon />}
-                  sx={{
-                    color: "blue",
-                    fontWeight: "bold",
-                    ml: 3,
-                  }}
-                >
-                  sign in
-                </Button>
-              </Link>
-              <Link href="/user/sign-up">
-                <Button
-                  variant="outlined"
-                  endIcon={<AppRegistrationIcon />}
-                  sx={{
-                    fontWeight: "bold",
-                    ml: 2,
-                  }}
-                >
-                  Sign up
-                </Button>
-              </Link>
-            </Stack>
+            {logoutBtn && (
+              <Stack direction="row">
+                <Link href="/user/login">
+                  <Button
+                    variant="outlined"
+                    color="inherit"
+                    startIcon={<LoginIcon />}
+                    sx={{
+                      color: "blue",
+                      fontWeight: "bold",
+                      ml: 3,
+                    }}
+                  >
+                    sign in
+                  </Button>
+                </Link>
+                <Link href="/user/sign-up">
+                  <Button
+                    variant="outlined"
+                    endIcon={<AppRegistrationIcon />}
+                    sx={{
+                      fontWeight: "bold",
+                      ml: 2,
+                    }}
+                  >
+                    Sign up
+                  </Button>
+                </Link>
+              </Stack>
+            )}
 
-            <Button
-              variant="outlined"
-              endIcon={<LogoutIcon />}
-              sx={{
-                fontWeight: "bold",
-                ml: 2,
-              }}
-            >
-              logout
-            </Button>
+            {!logoutBtn && (
+              <Button
+                variant="outlined"
+                endIcon={<LogoutIcon />}
+                sx={{
+                  fontWeight: "bold",
+                  ml: 2,
+                }}
+                onClick={() => logoutHandler()}
+              >
+                logout
+              </Button>
+            )}
           </Box>
         </Toolbar>
       </AppBar>{" "}

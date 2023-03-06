@@ -25,6 +25,7 @@ import { SignUpType } from "@/models/user";
 import { initialValues } from "../formValidation/signupValidation";
 import { validationSchema } from "../formValidation/signupValidation";
 import { API } from "@/api/Api";
+import { useRouter } from "next/router";
 
 const SignUp: FC = () => {
   const [emailError, setEmailError] = useState(false);
@@ -50,7 +51,6 @@ const SignUp: FC = () => {
     try {
       await API.user.signup(sendObj);
       formikHelpers.resetForm();
-      console.log(values);
       setCreateAcc(true);
       setTimeout(() => {
         setCreateAcc(false);

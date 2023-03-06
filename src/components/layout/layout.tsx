@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { ReactNode } from "react";
 import Footer from "./footer/footer";
-import MainNavigation from "./mainNavigation/mainNavigation";
+import MainNavigation from "./mainNavigation/MainNavigation";
 
 interface ChildrenType {
   children: ReactNode;

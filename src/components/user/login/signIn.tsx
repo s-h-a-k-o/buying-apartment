@@ -22,10 +22,13 @@ import { SignInType } from "@/models/user";
 
 import { API } from "@/api/Api";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { authActions } from "@/store/auth-slice";
 
 const SignIn: FC = () => {
   const [emailError, setEmailError] = useState(false);
-  const [logout, setLogout] = useState(false);
+
+  const dispatch = useDispatch();
 
   const router = useRouter();
 
@@ -41,10 +44,10 @@ const SignIn: FC = () => {
         sendObj
       );
       formikHelpers.resetForm();
-      API.setToken(response.token)
+      API.setToken(response.token);
       setEmailError(false);
-      setLogout(true);
       router.push(`/user/profile/${response._id}`);
+      dispatch(authActions.login());
     } catch (err: any) {
       console.log(err.response);
       if (
