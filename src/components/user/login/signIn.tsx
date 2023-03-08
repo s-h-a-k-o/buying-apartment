@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 
 import { Formik, Form, Field, FormikHelpers } from "formik";
 
@@ -31,6 +31,10 @@ const SignIn: FC = () => {
   const dispatch = useDispatch();
 
   const router = useRouter();
+
+  useEffect(() => {
+    API.setToken("");
+  }, []);
 
   const onSubmit = async (
     values: SignInType,

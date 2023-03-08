@@ -27,7 +27,7 @@ export const validationSchema = Yup.object().shape({
     .min(6)
     .max(14)
     .matches(
-      /[a-zA-Z][1-9]/,
+      /[a-zA-Z][0-9]/,
       "Password can only contain Latin letters and min one number."
     ),
   confirmPassword: Yup.string()

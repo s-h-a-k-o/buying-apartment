@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 
 import { Formik, Form, Field, FormikHelpers } from "formik";
 
@@ -30,8 +30,14 @@ import { useRouter } from "next/router";
 const SignUp: FC = () => {
   const [emailError, setEmailError] = useState(false);
   const [createAcc, setCreateAcc] = useState(false);
+  const router = useRouter();
+
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 18);
+
+  useEffect(() => {
+    API.setToken("");
+  }, []);
 
   const onSubmit = async (
     values: SignUpType,
@@ -52,9 +58,14 @@ const SignUp: FC = () => {
       await API.user.signup(sendObj);
       formikHelpers.resetForm();
       setCreateAcc(true);
-      setTimeout(() => {
-        setCreateAcc(false);
-      }, 1500);
+      const response: { token: string; _id: string } = await API.user.login({
+        email: values.email,
+        password: values.password,
+      });
+      API.setToken(response.token);
+      setCreateAcc(false);
+
+      router.push(`/user/profile/${response._id}`);
     } catch (err: any) {
       console.log(err.response);
       if (

@@ -7,15 +7,15 @@ import Link from "next/link";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import LoginIcon from "@mui/icons-material/Login";
 import MainLeftSide from "./mainLeftSide/mainLeftSide";
-import ProfileMenu from "./profileMenu/ProfileMenu";
+
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Stack } from "@mui/system";
 import { API } from "@/api/Api";
-import { useRouter } from "next/router";
 
-import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "@/store/auth-slice";
+import { useRouter } from "next/router";
+import ProfileMenu from "./profileMenu/ProfileMenu";
+import AccountMenu from "./profileAvatar/ProfileAvatar";
 
 const bottomBorder = (
   <Box
@@ -31,15 +31,13 @@ const MainNavigation: FC = () => {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const logoutBtn = useSelector((state: any) => state.auth.isAuth);
-  const dispatch = useDispatch();
+  const profileId = router.query.id;
 
   const open = Boolean(anchorEl);
 
   const logoutHandler = () => {
     API.setToken("");
     router.push("/user/login");
-    dispatch(authActions.logout());
   };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -195,8 +193,8 @@ const MainNavigation: FC = () => {
               <Link href="/contact">Contact</Link>
             </Button>
 
-            {logoutBtn && (
-              <Stack direction="row">
+            {!profileId && (
+              <Stack direction="row" spacing={2}>
                 <Link href="/user/login">
                   <Button
                     variant="outlined"
@@ -205,7 +203,6 @@ const MainNavigation: FC = () => {
                     sx={{
                       color: "blue",
                       fontWeight: "bold",
-                      ml: 3,
                     }}
                   >
                     sign in
@@ -217,7 +214,6 @@ const MainNavigation: FC = () => {
                     endIcon={<AppRegistrationIcon />}
                     sx={{
                       fontWeight: "bold",
-                      ml: 2,
                     }}
                   >
                     Sign up
@@ -226,7 +222,7 @@ const MainNavigation: FC = () => {
               </Stack>
             )}
 
-            {!logoutBtn && (
+            {profileId && (
               <Button
                 variant="outlined"
                 endIcon={<LogoutIcon />}
@@ -239,6 +235,8 @@ const MainNavigation: FC = () => {
                 logout
               </Button>
             )}
+
+            {profileId && <AccountMenu />}
           </Box>
         </Toolbar>
       </AppBar>{" "}
