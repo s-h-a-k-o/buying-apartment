@@ -1,23 +1,25 @@
 import { ApiWrapper } from "./ApiWrapper";
 import { ApiUser } from "./ApiUser";
-import { NextPageContext } from 'next';
-import Router from 'next/router';
-import { NextRequest } from 'next/server';
+import { NextPageContext } from "next";
+import Router from "next/router";
+import { NextRequest } from "next/server";
+import { ApiApartment } from "./ApiApartment";
 
 const isServer = () => {
   return typeof window === "undefined";
-}
+};
 
 class Api {
   private req = new ApiWrapper();
-  private token = '';
+  private token = "";
   private context = <NextPageContext>{};
 
   user: ApiUser;
+  apartment: ApiApartment;
 
   constructor() {
     if (!isServer()) {
-      this.token = localStorage.getItem('token') || '';
+      this.token = localStorage.getItem("token") || "";
     }
     this.setToken(this.token);
     this.req.client.interceptors.response.use(
@@ -32,7 +34,7 @@ class Api {
             this.context.res?.end();
           } else {
             localStorage.removeItem("token");
-            Router.push('/user/login');
+            Router.push("/user/login");
           }
         }
         return Promise.reject(error);
@@ -40,20 +42,23 @@ class Api {
     );
 
     this.user = new ApiUser(this.req);
+    this.apartment = new ApiApartment(this.req);
   }
 
   setContext = (_context: NextPageContext) => {
     this.context = _context;
-  }
+  };
 
   setToken = (_token: string) => {
     this.token = _token;
-    NextRequest
+    NextRequest;
     if (!isServer()) {
       localStorage.setItem("token", _token);
     }
-    this.req.client.defaults.headers.common["Authorization"] = !!_token ? `Bearer ${_token}` : ''
-  }
+    this.req.client.defaults.headers.common["Authorization"] = !!_token
+      ? `Bearer ${_token}`
+      : "";
+  };
 
   get http() {
     return this.req.client;
