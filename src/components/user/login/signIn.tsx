@@ -16,8 +16,8 @@ import Container from "@mui/material/Container";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
 // initialvalues and validation for login form
-import { initialValues } from "../formValidation/loginValidation";
-import { validationSchema } from "../formValidation/loginValidation";
+import { initialValues } from "../formVal&State/loginVal&State";
+import { validationSchema } from "../formVal&State/loginVal&State";
 import { SignInType } from "@/models/user";
 
 import { API } from "@/api/Api";

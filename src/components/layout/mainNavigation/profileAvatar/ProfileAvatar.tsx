@@ -7,11 +7,15 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { Typography } from "@mui/material";
+
+//  profile icons
+import HomeIcon from "@mui/icons-material/Home";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 interface MenuPropsType {
   logoutBtn: () => void;
@@ -81,20 +85,35 @@ export default function AccountMenu({ logoutBtn }: MenuPropsType) {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <Link href={`/user/profile/${profileId}`}>
-          <MenuItem sx={{ paddingY: 1 }}>
-            <Avatar /> My account
-          </MenuItem>
-        </Link>
+        <MenuItem
+          sx={{
+            paddingY: 1,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Typography sx={{ fontWeight: "bold", paddingY: 0.5 }}>
+            {" "}
+            Jaydon Frankie
+          </Typography>
+          <Typography> demo@minimals.cc</Typography>
+        </MenuItem>
 
         <Divider />
-        <Box sx={{ marginTop: 2 }}></Box>
-        <Link href="/user/sign-up">
+        <Link href="/">
+          <MenuItem sx={{ marginTop: 2 }}>
+            <ListItemIcon>
+              <HomeIcon fontSize="small" />
+            </ListItemIcon>
+            Home
+          </MenuItem>
+        </Link>
+        <Link href={`/user/profile/${profileId}`}>
           <MenuItem>
             <ListItemIcon>
-              <PersonAdd fontSize="small" />
+              <AccountCircleIcon fontSize="small" />
             </ListItemIcon>
-            Add another account
+            Profile
           </MenuItem>
         </Link>
         <MenuItem>

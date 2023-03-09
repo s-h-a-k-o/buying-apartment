@@ -22,8 +22,9 @@ import { DatePicker } from "@mui/x-date-pickers";
 
 //validation and initialvalues for signup form
 import { SignUpType } from "@/models/user";
-import { initialValues } from "../formValidation/signupValidation";
-import { validationSchema } from "../formValidation/signupValidation";
+import { initialValues } from "../formVal&State/signupVal&State";
+import { validationSchema } from "../formVal&State/signupVal&State";
+
 import { API } from "@/api/Api";
 import { useRouter } from "next/router";
 

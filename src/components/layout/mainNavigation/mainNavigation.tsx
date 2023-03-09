@@ -15,6 +15,7 @@ import { API } from "@/api/Api";
 import { useRouter } from "next/router";
 import ProfileMenu from "./profileMenu/ProfileMenu";
 import AccountMenu from "./profileAvatar/ProfileAvatar";
+import MainLogo from "./mainLogo/MainLogo";
 
 const bottomBorder = (
   <Box
@@ -29,10 +30,14 @@ const bottomBorder = (
 const MainNavigation: FC = () => {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [logout, setLogout] = useState(true);
 
   const profileId = router.query.id;
 
   const open = Boolean(anchorEl);
+
+  console.log(API);
+  console.log(router);
 
   const logoutHandler = () => {
     API.setToken("");
@@ -50,41 +55,11 @@ const MainNavigation: FC = () => {
     <Box>
       <AppBar position="static" sx={{ background: "#e8eaf6" }}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+          {/* left menu for small screens */}
           <MainLeftSide />
-          <Box sx={{ display: "flex" }}>
-            <Link href="/">
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="logo"
-                disableRipple
-              >
-                <Image
-                  src={"/logo.png"}
-                  alt="logo"
-                  width={70}
-                  height={70}
-                  priority
-                  className="w-[50px] h-[50px] md:w-[65px] md:h-[65px] lg:w-[70px] lg:h-[70px] "
-                />
-                <Typography
-                  variant="h6"
-                  sx={{
-                    color: "black",
-                    fontWeight: "bold",
-                    ml: { xs: 0.5, sm: 2, md: 1 },
-                    fontSize: {
-                      xs: "16px",
-                      sm: "20px",
-                      md: "18px",
-                    },
-                  }}
-                >
-                  Apartments
-                </Typography>
-              </IconButton>
-            </Link>
-          </Box>
+
+          {/* apartment logo */}
+          <MainLogo />
 
           {/* menu with login and sign-up */}
           <ProfileMenu />

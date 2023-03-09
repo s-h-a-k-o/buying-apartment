@@ -1,19 +1,14 @@
 import { FC } from "react";
 import Image from "next/image";
-import {
-  Box,
-  Stack,
-  IconButton,
-  Typography,
-  Button,
-  Grid,
-} from "@mui/material";
+import { Box, IconButton, Typography, Grid } from "@mui/material";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import { Container } from "@mui/system";
+import FooterNav from "./footerNav/FooterNav";
+import FooterSocialIcons from "./footerSocialIcons/FooterSocialIcons";
 
 const Footer: FC = () => {
   return (
@@ -52,100 +47,10 @@ const Footer: FC = () => {
           </Box>
 
           {/* social media icons */}
-          <Grid container marginTop={5}>
-            <Grid item xs={1.5} sm={1}>
-              <FacebookIcon
-                fontSize="large"
-                titleAccess="Like us on Facebook"
-                sx={{ cursor: "pointer", color: "white" }}
-                onClick={() => {
-                  window.open("https://www.facebook.com/apartments");
-                }}
-              />
-            </Grid>
-            <Grid item xs={1.5} sm={1}>
-              <InstagramIcon
-                fontSize="large"
-                titleAccess="Folwow us on Instagram"
-                sx={{ cursor: "pointer", color: "white" }}
-                onClick={() => {
-                  window.open("https://www.instagram.com/apartments");
-                }}
-              />
-            </Grid>
-            <Grid item xs={1.5} sm={1}>
-              <TwitterIcon
-                fontSize="large"
-                titleAccess="Follow us on Twitter"
-                sx={{ cursor: "pointer", color: "white" }}
-                onClick={() => {
-                  window.open("https://twitter.com/apartments");
-                }}
-              />
-            </Grid>
-            <Grid item xs={1.5} sm={1}>
-              <YouTubeIcon
-                fontSize="large"
-                titleAccess="Follow our YouTube channel"
-                sx={{ cursor: "pointer", color: "white" }}
-                onClick={() => {
-                  window.open("https://www.youtube.com/apartments");
-                }}
-              />
-            </Grid>
-          </Grid>
+          <FooterSocialIcons />
 
           {/* footer navigation */}
-          <Grid container marginTop={4} rowGap={1.5}>
-            <Grid item xs={6} sm={3} md={1.2} textAlign="center">
-              <Button size="small" sx={{ color: "white" }}>
-                {" "}
-                About us
-              </Button>
-            </Grid>
-            <Grid item xs={6} sm={3} md={1.2} textAlign="center">
-              <Button size="small" sx={{ color: "white" }}>
-                {" "}
-                News
-              </Button>
-            </Grid>
-            <Grid item xs={6} sm={3} md={1.2} textAlign="center">
-              <Button size="small" sx={{ color: "white" }}>
-                {" "}
-                Privacy
-              </Button>
-            </Grid>
-            <Grid item xs={6} sm={3} md={1.2} textAlign="center">
-              <Button size="small" sx={{ color: "white" }}>
-                {" "}
-                Feedback
-              </Button>
-            </Grid>
-            <Grid item xs={6} sm={3} md={1.2} textAlign="center">
-              <Button size="small" sx={{ color: "white" }}>
-                {" "}
-                Terms
-              </Button>
-            </Grid>
-            <Grid item xs={6} sm={3} md={1.2} textAlign="center">
-              <Button size="small" sx={{ color: "white" }}>
-                {" "}
-                Contact
-              </Button>
-            </Grid>
-            <Grid item xs={6} sm={3} md={1.2} textAlign="center">
-              <Button size="small" sx={{ color: "white" }}>
-                {" "}
-                Partners
-              </Button>
-            </Grid>
-          </Grid>
-
-          <Box sx={{ marginTop: 5 }}>
-            <Typography variant="body2" sx={{ color: "white" }}>
-              © 1995-2023. All rights reserved.
-            </Typography>
-          </Box>
+          <FooterNav />
         </Container>
       </Box>
     </>
