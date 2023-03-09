@@ -1,8 +1,9 @@
+import { FC } from "react";
 import { Container, Grid, Link } from "@mui/material";
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
-const Contact = () => {
+const Contact: FC = () => {
   return (
     <Container>
       <Box

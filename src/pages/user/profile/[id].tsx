@@ -1,9 +1,9 @@
 import { NextPage } from "next";
 import { API } from "@/api/Api";
 import React, { useEffect, useState } from "react";
-import { Typography, Box } from '@mui/material';
+import UserProfile from "@/components/user/profile/UserProfile";
 
-const UserProfile: NextPage = ({ userId }: any) => {
+const UserProfilePage: NextPage = ({ userId }: any) => {
   const [userObj, setUserObj] = useState<any>({});
 
   useEffect(() => {
@@ -15,19 +15,18 @@ const UserProfile: NextPage = ({ userId }: any) => {
   }, [userId]);
 
   return (
-    <Box sx={{p: 2}}>
-      <Typography variant="subtitle1">{userObj.firstName} {userObj.lastName}</Typography>
-      <Typography variant="subtitle1">email: {userObj.email}</Typography>
-    </Box>
+    <>
+      <UserProfile user={userObj} />
+    </>
   );
 };
 
-UserProfile.getInitialProps = (context) => {
-  API.setContext(context)
+UserProfilePage.getInitialProps = (context) => {
+  API.setContext(context);
   const id = context.query.id as string;
   return {
     userId: id,
   };
 };
 
-export default UserProfile;
+export default UserProfilePage;

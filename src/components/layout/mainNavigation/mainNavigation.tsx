@@ -9,7 +9,6 @@ import LoginIcon from "@mui/icons-material/Login";
 import MainLeftSide from "./mainLeftSide/mainLeftSide";
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import LogoutIcon from "@mui/icons-material/Logout";
 import { Stack } from "@mui/system";
 import { API } from "@/api/Api";
 
@@ -91,110 +90,122 @@ const MainNavigation: FC = () => {
           <ProfileMenu />
 
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Button
-              variant="outlined"
-              id="button-id"
-              color="inherit"
-              onClick={handleClick}
-              aria-controls={open ? "menu-id" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
-              endIcon={<KeyboardArrowDownIcon />}
-              sx={{ color: "black", fontWeight: "bold" }}
-            >
-              Buy
-            </Button>
-            <Menu
-              id="menu-id"
-              anchorEl={anchorEl}
-              open={open}
-              MenuListProps={{ "aria-labelledby": "button-id" }}
-              onClose={handleClose}
-              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-              transformOrigin={{ vertical: "top", horizontal: "right" }}
-              sx={{ marginTop: 0.5 }}
-            >
-              <Typography
-                variant="body1"
-                sx={{
-                  padding: 2,
-                  color: "black",
-                }}
+            <Stack direction="row" spacing={1}>
+              <Button
+                variant="outlined"
+                id="button-id"
+                color="inherit"
+                onClick={handleClick}
+                aria-controls={open ? "menu-id" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                endIcon={<KeyboardArrowDownIcon />}
+                sx={{ color: "black", fontWeight: "bold" }}
               >
-                Apartments Type
-              </Typography>
-              {bottomBorder}
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
+                Buy
+              </Button>
+              <Menu
+                id="menu-id"
+                anchorEl={anchorEl}
+                open={open}
+                MenuListProps={{ "aria-labelledby": "button-id" }}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                transformOrigin={{ vertical: "top", horizontal: "right" }}
+                sx={{ marginTop: 0.5 }}
               >
-                <MenuItem
+                <Typography
+                  variant="body1"
                   sx={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    color: "#1565c0",
+                    padding: 2,
+                    color: "black",
                   }}
                 >
-                  Any
-                </MenuItem>
-                <MenuItem
+                  Apartments Type
+                </Typography>
+                {bottomBorder}
+                <Box
                   sx={{
-                    width: "100%",
                     display: "flex",
-                    justifyContent: "center",
-                    color: "#1565c0",
+                    flexDirection: "column",
+                    alignItems: "center",
                   }}
                 >
-                  Family-Home
-                </MenuItem>
-                <MenuItem
-                  sx={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    color: "#1565c0",
-                  }}
-                >
-                  Townhome
-                </MenuItem>
-                <MenuItem
-                  sx={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    color: "#1565c0",
-                  }}
-                >
-                  Flat
-                </MenuItem>
-                <MenuItem
-                  sx={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    color: "#1565c0",
-                  }}
-                >
-                  Land
-                </MenuItem>
-              </Box>
-            </Menu>
-            <Button color="inherit" sx={{ color: "black", fontWeight: "bold" }}>
-              Sell
-            </Button>
-            <Button color="inherit" sx={{ color: "black", fontWeight: "bold" }}>
-              Apartments
-            </Button>
-            <Button color="inherit" sx={{ color: "black", fontWeight: "bold" }}>
-              <Link href="/contact">Contact</Link>
-            </Button>
+                  <MenuItem
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      color: "#1565c0",
+                    }}
+                  >
+                    Any
+                  </MenuItem>
+                  <MenuItem
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      color: "#1565c0",
+                    }}
+                  >
+                    Family-Home
+                  </MenuItem>
+                  <MenuItem
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      color: "#1565c0",
+                    }}
+                  >
+                    Townhome
+                  </MenuItem>
+                  <MenuItem
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      color: "#1565c0",
+                    }}
+                  >
+                    Flat
+                  </MenuItem>
+                  <MenuItem
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      color: "#1565c0",
+                    }}
+                  >
+                    Land
+                  </MenuItem>
+                </Box>
+              </Menu>
+
+              <Button
+                color="inherit"
+                sx={{ color: "black", fontWeight: "bold" }}
+              >
+                Sell
+              </Button>
+              <Button
+                color="inherit"
+                sx={{ color: "black", fontWeight: "bold" }}
+              >
+                Apartments
+              </Button>
+              <Button
+                color="inherit"
+                sx={{ color: "black", fontWeight: "bold" }}
+              >
+                <Link href="/contact">Contact</Link>
+              </Button>
+            </Stack>
 
             {!profileId && (
-              <Stack direction="row" spacing={2}>
+              <Stack direction="row" spacing={1} marginLeft={1}>
                 <Link href="/user/login">
                   <Button
                     variant="outlined"
@@ -222,21 +233,7 @@ const MainNavigation: FC = () => {
               </Stack>
             )}
 
-            {profileId && (
-              <Button
-                variant="outlined"
-                endIcon={<LogoutIcon />}
-                sx={{
-                  fontWeight: "bold",
-                  ml: 2,
-                }}
-                onClick={() => logoutHandler()}
-              >
-                logout
-              </Button>
-            )}
-
-            {profileId && <AccountMenu />}
+            {profileId && <AccountMenu logoutBtn={logoutHandler} />}
           </Box>
         </Toolbar>
       </AppBar>{" "}
